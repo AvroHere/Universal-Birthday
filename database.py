@@ -7,6 +7,7 @@ DB_NAME = "birthday.db"
 def init_db():
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
+    # Added custom_text column
     c.execute('''
         CREATE TABLE IF NOT EXISTS pages (
             slug TEXT PRIMARY KEY,
@@ -16,20 +17,21 @@ def init_db():
             theme_key TEXT,
             photo_ids TEXT,
             audio_id TEXT,
+            custom_text TEXT, 
             created_at TEXT
         )
     ''')
     conn.commit()
     conn.close()
 
-def save_page(slug, name, dob_text, age_text, theme_key, photo_ids, audio_id):
+def save_page(slug, name, dob_text, age_text, theme_key, photo_ids, audio_id, custom_text):
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
     c.execute('''
         INSERT OR REPLACE INTO pages 
-        (slug, name, dob_text, age_text, theme_key, photo_ids, audio_id, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    ''', (slug, name, dob_text, age_text, theme_key, json.dumps(photo_ids), audio_id, datetime.now().isoformat()))
+        (slug, name, dob_text, age_text, theme_key, photo_ids, audio_id, custom_text, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (slug, name, dob_text, age_text, theme_key, json.dumps(photo_ids), audio_id, custom_text, datetime.now().isoformat()))
     conn.commit()
     conn.close()
 

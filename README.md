@@ -34,6 +34,7 @@ Universal-Birthday/
 │   └── birthday.html  # The frontend design
 ├── requirements.txt   # Dependencies
 └── README.md          # Documentation
+```
 
 # 🚀 How to Deploy on Render
 

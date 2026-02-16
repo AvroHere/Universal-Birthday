@@ -13,11 +13,17 @@ An **Admin-Only Telegram Bot** that generates personalized, scrolling "birthday 
 ## 📂 Project Structure
 
 birthday_bot/
+
 ├── main.py            # FastAPI entry point & media proxy
+
 ├── bot_logic.py       # Telegram conversation handler
+
 ├── database.py        # SQLite handler (Ephemeral metadata)
+
 ├── themes.py          # "Vibe" configuration (Colors/Text)
+
 ├── requirements.txt   # Python dependencies
+
 └── templates/
     └── birthday.html  # Jinja2 template (The website design)
 

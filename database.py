@@ -7,9 +7,12 @@ DB_NAME = "birthday.db"
 def init_db():
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
-    # Added custom_text column
+    # --- FIX: Drop old table to prevent "no column named custom_text" error ---
+    c.execute('DROP TABLE IF EXISTS pages')
+    
+    # Create fresh table with new columns
     c.execute('''
-        CREATE TABLE IF NOT EXISTS pages (
+        CREATE TABLE pages (
             slug TEXT PRIMARY KEY,
             name TEXT,
             dob_text TEXT,
@@ -17,7 +20,7 @@ def init_db():
             theme_key TEXT,
             photo_ids TEXT,
             audio_id TEXT,
-            custom_text TEXT, 
+            custom_text TEXT,
             created_at TEXT
         )
     ''')
@@ -27,6 +30,10 @@ def init_db():
 def save_page(slug, name, dob_text, age_text, theme_key, photo_ids, audio_id, custom_text):
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
+    
+    # Delete previous wish (Clean Server)
+    c.execute('DELETE FROM pages')
+    
     c.execute('''
         INSERT OR REPLACE INTO pages 
         (slug, name, dob_text, age_text, theme_key, photo_ids, audio_id, custom_text, created_at)
